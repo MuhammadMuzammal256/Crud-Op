@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show Todos</title>
+</head>
+<body style="text-align:center; font-family: Arial;">
+
+    <h1>All Todos</h1>
+
+    <ul style="list-style:none; padding:0;">
+
+        <% if (!todos || todos.length === 0) { %>
+            <p>No todos yet 😴</p>
+        <% } %>
+
+        <% todos.map((todo) => { %>
+            <li style="background:#eee; margin:10px; padding:10px;">
+                <%= todo.title %>
+            </li>
+        <% }) %>
+
+    </ul>
+
+    <a href="/">Back</a>
+
+</body>
+</html>

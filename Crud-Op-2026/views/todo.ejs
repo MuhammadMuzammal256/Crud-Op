@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input {
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 3px;
+            border: none;
+            cursor: pointer;
+        }
+        .add-btn { background: black; color: white; }
+        .edit-btn { background: orange; color: white; }
+        .update-btn { background: green; color: white; }
+        .delete-btn { background: red; color: white; }
+
+        .update-btn {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h2>Todo App</h2>
+
+
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Enter task..." required />
+        <button class="add-btn">Add</button>
+    </form>
+
+    <br>
+
+
+  <ul>
+    <% todos.forEach((todo) => { %>
+        <li>
+
+            <form action="/update/<%= todo._id %>" method="POST" style="display:inline;">
+
+                <span id="text-<%= todo._id %>">
+                    <%= todo.title %>
+                </span>
+
+                <input 
+                    type="text" 
+                    name="title" 
+                    value="<%= todo.title %>" 
+                    id="input-<%= todo._id %>" 
+                    style="display:none;"
+                />
+
+                <button 
+                    type="button"
+                    class="edit-btn"
+                    onclick="editTodo('<%= todo._id %>')"
+                    id="edit-<%= todo._id %>"
+                >
+                    Edit
+                </button>
+
+                <button 
+                    type="submit"
+                    class="update-btn"
+                    id="update-<%= todo._id %>"
+                >
+                    Update
+                </button>
+
+            </form>
+
+            <form action="/delete/<%= todo._id %>" method="POST" style="display:inline;">
+                <button class="delete-btn">Delete</button>
+            </form>
+
+        </li>
+    <% }) %>
+</ul>
+    <form action="/delete-all" method="POST">
+  <button type="submit">Delete All</button>
+</form>
+<a href="/show">show page</a>
+</div>
+
+<script>
+function editTodo(id) {
+
+
+    document.getElementById("input-" + id).style.display = "inline";
+
+
+    document.getElementById("text-" + id).style.display = "none";
+
+
+    document.getElementById("edit-" + id).style.display = "none";
+
+
+    document.getElementById("update-" + id).style.display = "inline";
+}
+</script>
+
+</body>
+</html>
